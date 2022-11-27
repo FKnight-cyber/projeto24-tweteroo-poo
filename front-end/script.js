@@ -1,22 +1,35 @@
 let _username = '';
 
+class User {
+  constructor(username, avatar) {
+    this.username = username;
+    this.avatar = avatar;
+  }
+
+  register() {
+    axios
+      .post('http://localhost:5001/sign-up', {
+        username: this.username,
+        avatar: this.avatar
+      })
+      .then(() => {
+        _username = this.username;
+        loadTweets();
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Erro ao fazer cadastro! Consulte os logs.');
+      });
+  }
+};
+
 function signUp() {
   const username = document.querySelector('#username').value;
   const picture = document.querySelector('#picture').value;
 
-  axios
-    .post('http://localhost:5001/sign-up', {
-      username,
-      avatar: picture
-    })
-    .then(() => {
-      _username = username;
-      loadTweets();
-    })
-    .catch(err => {
-      console.error(err);
-      alert('Erro ao fazer cadastro! Consulte os logs.');
-    });
+  const user = new User(username, picture);
+
+  user.register();
 }
 
 function loadTweets() {
