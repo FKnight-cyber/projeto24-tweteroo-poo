@@ -1,7 +1,7 @@
 import db from '../database/mongodb.js';
 
-async function insert(username, avatar) {
-    await db.collection('users').insertOne({username:username, avatar:avatar});
+async function insert(user) {
+    await db.collection('users').insertOne(user);
 };
 
 async function findUser(username) {

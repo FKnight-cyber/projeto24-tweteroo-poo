@@ -1,7 +1,7 @@
 import db from '../database/mongodb.js';
 
-async function insert(username, tweet, avatar) {
-    await db.collection('tweets').insertOne({username:username, tweet:tweet, avatar:avatar});
+async function insert(user, tweet) {
+    await db.collection('tweets').insertOne(user.tweet(tweet));
 };
 
 async function tweetsByUser(username) {

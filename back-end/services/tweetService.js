@@ -1,5 +1,6 @@
 import authRepository from "../repositories/authRepository.js";
 import tweetsRepository from "../repositories/tweetRepository.js";
+import { User } from "../classes/user.js";
 
 async function validate(username, tweet) {
     if (!username || !tweet) {
@@ -14,7 +15,9 @@ async function insert(username, tweet) {
 
     const { avatar } = users;
 
-    await tweetsRepository.insert(username, tweet, avatar);
+    const user = new User(username, avatar);
+
+    await tweetsRepository.insert(user, tweet);
 };
 
 async function listUserTweets(username) {
